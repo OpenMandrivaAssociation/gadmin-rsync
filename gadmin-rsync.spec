@@ -4,7 +4,7 @@
 
 Summary:	A GTK+ administation tool for rsync
 Name:		gadmin-rsync
-Version:	0.1.6
+Version:	0.1.7
 Release:	%mkrel 1
 License:	GPLv3+
 Group:		System/Configuration/Networking
