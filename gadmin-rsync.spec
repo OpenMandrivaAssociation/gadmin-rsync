@@ -5,7 +5,7 @@
 Summary:	A GTK+ administation tool for rsync
 Name:		gadmin-rsync
 Version:	0.1.7
-Release:	%mkrel 1
+Release:	2
 License:	GPLv3+
 Group:		System/Configuration/Networking
 URL:		http://www.gadmintools.org/
@@ -16,7 +16,6 @@ BuildRequires:	imagemagick
 BuildRequires:	desktop-file-utils
 Requires:	rsync
 Requires:	usermode-consoleonly
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Gadmin-Rsync is a fast and easy to use GTK+ administration tool for rsync.
@@ -29,7 +28,6 @@ Gadmin-Rsync is a fast and easy to use GTK+ administration tool for rsync.
 %make
 
 %install
-rm -rf %{buildroot}
 %makeinstall
 
 install -d %{buildroot}%{_sysconfdir}/%{name}
@@ -40,9 +38,6 @@ install -d %{buildroot}%{_sysconfdir}/security/console.apps
 
 install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/%{name}
 install -m 644 etc/security/console.apps/%{name} %{buildroot}%{_sysconfdir}/security/console.apps/%{name}
-
-## locales
-%find_lang %{name}
 
 # Mandriva Icons
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48}/apps
@@ -74,20 +69,7 @@ _EOF_
 
 rm -rf %{buildroot}%{_datadir}/doc/%{name}
 
-%post
-%if %mdkversion < 200900
-%update_menus
-%endif
-
-%postun
-%if %mdkversion < 200900
-%clean_menus
-%endif
-
-%clean
-rm -rf %{buildroot}
-
-%files -f %{name}.lang
+%files
 %defattr(-,root,root,0755)
 %doc COPYING AUTHORS ChangeLog
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
@@ -99,4 +81,36 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/%{name}/*.png
 %{_datadir}/applications/*
 %{_iconsdir}/hicolor/*/%{name}.png
+
+
+
+%changelog
+* Wed Mar 16 2011 Stéphane Téletchéa <steletch@mandriva.org> 0.1.7-1mdv2011.0
++ Revision: 645176
+- update to new version 0.1.7
+
+* Sun Nov 28 2010 Funda Wang <fwang@mandriva.org> 0.1.6-1mdv2011.0
++ Revision: 602227
+- update to new version 0.1.6
+
+* Thu Jan 07 2010 Emmanuel Andry <eandry@mandriva.org> 0.1.5-1mdv2010.1
++ Revision: 487291
+- New version 0.1.5
+
+* Fri Sep 11 2009 Emmanuel Andry <eandry@mandriva.org> 0.1.4-1mdv2010.0
++ Revision: 438459
+- New version 0.1.4
+
+* Fri Sep 11 2009 Thierry Vignaud <tv@mandriva.org> 0.1.1-2mdv2010.0
++ Revision: 437643
+- rebuild
+
+* Tue Feb 17 2009 Jérôme Soyer <saispo@mandriva.org> 0.1.1-1mdv2009.1
++ Revision: 341535
+- New upstream release
+
+* Sun Jan 04 2009 Adam Williamson <awilliamson@mandriva.org> 0.1.0-1mdv2009.1
++ Revision: 324190
+- import gadmin-rsync
+
 
